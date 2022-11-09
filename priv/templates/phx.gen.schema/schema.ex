@@ -1,5 +1,5 @@
 defmodule <%= inspect schema.module %> do
-  use Ecto.Schema
+  use <%= inspect schema.base_schema_module %>
   import Ecto.Changeset
 <%= if schema.prefix do %>
   @schema_prefix :<%= schema.prefix %><% end %><%= if schema.binary_id do %>

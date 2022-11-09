@@ -322,6 +322,18 @@ defmodule Mix.Tasks.Phx.Gen.SchemaTest do
     end
   end
 
+  test "generates migrations with a custom base schema module", config do
+    in_tmp_project config.test, fn ->
+      Application.put_env(:phoenix, :generators, base_schema_module: MyCustomApp.Schema)
+
+      Gen.Schema.run(~w(Blog.Post posts))
+
+      assert_file "lib/phoenix/blog/post.ex", fn file ->
+        assert file =~ "use MyCustomApp.Schema\n  import Ecto.Changeset"
+      end
+    end
+  end
+
   test "generates schema without extra line break", config do
     in_tmp_project config.test, fn ->
       Gen.Schema.run(~w(Blog.Post posts title))

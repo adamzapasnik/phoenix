@@ -103,6 +103,13 @@ defmodule Mix.Tasks.Phx.Gen.Schema do
   > The flag does not generate migrations to create the schema / database.
   > This needs to be done manually or in a separate migration.
 
+  ## base_schema_module
+
+  By default generated schemas will `use Ecto.Schema`. If you want to define your own Schema,
+  then you can use it with option `--base-schema-module`:
+
+      $ mix phx.gen.schema Blog.Post posts --base-schema-module MyApp.Schema
+
   ## Default options
 
   This generator uses default options provided in the `:generators`
@@ -111,7 +118,8 @@ defmodule Mix.Tasks.Phx.Gen.Schema do
       config :your_app, :generators,
         migration: true,
         binary_id: false,
-        sample_binary_id: "11111111-1111-1111-1111-111111111111"
+        sample_binary_id: "11111111-1111-1111-1111-111111111111",
+        base_schema_module: Ecto.Schema
 
   You can override those options per invocation by providing corresponding
   switches, e.g. `--no-binary-id` to use normal ids despite the default
@@ -122,7 +130,7 @@ defmodule Mix.Tasks.Phx.Gen.Schema do
   alias Mix.Phoenix.Schema
 
   @switches [migration: :boolean, binary_id: :boolean, table: :string,
-             web: :string, context_app: :string, prefix: :string]
+             web: :string, context_app: :string, prefix: :string, base_schema_module: :string]
 
   @doc false
   def run(args) do

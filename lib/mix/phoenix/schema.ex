@@ -38,7 +38,8 @@ defmodule Mix.Phoenix.Schema do
             migration_module: nil,
             fixture_unique_functions: %{},
             fixture_params: %{},
-            prefix: nil
+            prefix: nil,
+            base_schema_module: nil
 
   @valid_types [
     :integer,
@@ -86,6 +87,7 @@ defmodule Mix.Phoenix.Schema do
     api_prefix = Application.get_env(otp_app, :generators)[:api_prefix] || "/api"
     embedded? = Keyword.get(opts, :embedded, false)
     generate? = Keyword.get(opts, :schema, true)
+    base_schema_module = Keyword.get(opts, :base_schema_module, Ecto.Schema)
 
     singular =
       module
@@ -143,7 +145,8 @@ defmodule Mix.Phoenix.Schema do
       migration_module: migration_module(),
       fixture_unique_functions: fixture_unique_functions,
       fixture_params: fixture_params(attrs, fixture_unique_functions),
-      prefix: opts[:prefix]
+      prefix: opts[:prefix],
+      base_schema_module: base_schema_module
     }
   end
 
@@ -535,4 +538,5 @@ defmodule Mix.Phoenix.Schema do
       end
     end)
   end
+
 end

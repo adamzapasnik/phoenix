@@ -55,7 +55,8 @@ defmodule Mix.Tasks.Phx.Gen.Context do
       config :your_app, :generators,
         migration: true,
         binary_id: false,
-        sample_binary_id: "11111111-1111-1111-1111-111111111111"
+        sample_binary_id: "11111111-1111-1111-1111-111111111111",
+        base_schema_module: Ecto.Schema
 
   You can override those options per invocation by providing corresponding
   switches, e.g. `--no-binary-id` to use normal ids despite the default
@@ -80,7 +81,7 @@ defmodule Mix.Tasks.Phx.Gen.Context do
 
   @switches [binary_id: :boolean, table: :string, web: :string,
              schema: :boolean, context: :boolean, context_app: :string,
-             merge_with_existing_context: :boolean, prefix: :string, live: :boolean]
+             merge_with_existing_context: :boolean, prefix: :string, live: :boolean, base_schema_module: :string]
 
   @default_opts [schema: true, context: true]
 
